@@ -31,7 +31,7 @@ function ClinicHome() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 lg:px-8">
           <a href="#inicio" className="flex items-center gap-3" onClick={() => setMenuOpen(false)}>
             <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1d4f46] text-white"><Stethoscope size={20} /></span>
-            <div><p className="font-serif text-lg font-semibold leading-none">Dr. Pedro Santos</p><p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-[#69736f]">Cirurgia Plástica</p></div>
+            <div><p className="text-[11px] uppercase tracking-[0.18em] text-[#69736f]">Cirurgia Plástica</p><p className="mt-1 font-serif text-lg font-semibold leading-none">Dr. Pedro Santos</p></div>
           </a>
           <nav className="hidden items-center gap-7 text-sm font-medium text-[#52605b] md:flex">
             <a href="#sobre" className="hover:text-[#1d4f46]">Sobre</a><a href="#servicos" className="hover:text-[#1d4f46]">Serviços</a><a href="#contactos" className="hover:text-[#1d4f46]">Contactos</a>
