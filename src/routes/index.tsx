@@ -10,6 +10,20 @@ function ClinicHome() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const whatsapp = (message: string) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message)}`;
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const message = [
+      "Olá, gostaria de solicitar uma consulta com o Dr. Pedro Santos.",
+      `Nome: ${data.get("name")}`,
+      `Telefone: ${data.get("phone")}`,
+      `Data preferencial: ${data.get("date")}`,
+      `Período: ${data.get("period")}`,
+      data.get("message") ? `Mensagem: ${data.get("message")}` : "",
+    ].filter(Boolean).join("\\n");
+    window.open(whatsapp(message), "_blank", "noopener,noreferrer");
+    setSubmitted(true);
+  };
 
   return (
     <main className="min-h-screen bg-[#fbfaf8] text-[#17221f]">
@@ -70,7 +84,7 @@ function ClinicHome() {
           <div className="bg-[#1d4f46] p-7 text-white sm:p-10"><p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#bdd4ca]">Marcação</p><h2 className="mt-3 font-serif text-3xl font-semibold">Agende a sua consulta</h2><p className="mt-4 text-sm leading-6 text-[#d5e1dc]">Preencha os seus dados. Depois da solicitação, a clínica poderá confirmar a disponibilidade consigo.</p>
             <div className="mt-8 space-y-4 text-sm text-[#e1ebe7]"><p className="flex items-center gap-3"><Clock3 size={18} />Segunda a sexta: 08:00–19:00</p><p className="flex items-center gap-3"><Clock3 size={18} />Sábado: 08:00–12:00</p><p className="flex items-center gap-3"><MapPin size={18} />Rua José Sidumo, 177, Maputo</p></div>
           </div>
-          <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} className="p-7 sm:p-10">
+          <form onSubmit={handleSubmit} className="p-7 sm:p-10">
             {submitted ? <div className="flex min-h-[330px] flex-col items-center justify-center text-center"><div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#e5f0eb] text-[#1d4f46]"><CheckCircle2 /></div><h3 className="mt-5 font-serif text-2xl font-semibold">Pedido recebido</h3><p className="mt-2 max-w-sm text-sm leading-6 text-[#69736f]">Obrigado. Para confirmar rapidamente a disponibilidade, pode também contactar a clínica pelo WhatsApp.</p><a href={whatsapp("Olá, gostaria de confirmar uma marcação de consulta com o Dr. Pedro Santos.")} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#1d4f46] px-5 py-3 text-sm font-semibold text-white"><MessageCircle size={17} />Confirmar pelo WhatsApp</a></div> :
             <><div className="grid gap-5 sm:grid-cols-2">
               <label className="text-sm font-medium">Nome completo<input required name="name" className="mt-2 w-full rounded-xl border border-[#dfe3df] bg-[#fcfcfb] px-4 py-3 outline-none focus:border-[#1d4f46]" placeholder="O seu nome" /></label>
@@ -86,7 +100,7 @@ function ClinicHome() {
       <section id="contactos" className="border-t border-[#e7e5df]"><div className="mx-auto grid max-w-6xl gap-6 px-5 py-12 sm:grid-cols-3 lg:px-8">
         <a href={whatsapp("Olá, gostaria de falar com a clínica.")} target="_blank" rel="noreferrer" className="rounded-2xl border border-[#e4e5e0] bg-white p-5 hover:border-[#b9c9c2]"><MessageCircle className="text-[#1d4f46]" size={20} /><p className="mt-4 text-sm font-semibold">WhatsApp</p><p className="mt-1 text-sm text-[#69736f]">+258 87 373 5503</p></a>
         <a href="tel:+258873735503" className="rounded-2xl border border-[#e4e5e0] bg-white p-5 hover:border-[#b9c9c2]"><Phone className="text-[#1d4f46]" size={20} /><p className="mt-4 text-sm font-semibold">Telefone</p><p className="mt-1 text-sm text-[#69736f]">+258 87 373 5503</p></a>
-        <div className="rounded-2xl border border-[#e4e5e0] bg-white p-5"><MapPin className="text-[#1d4f46]" size={20} /><p className="mt-4 text-sm font-semibold">Localização</p><p className="mt-1 text-sm text-[#69736f]">Rua José Sidumo, 177, Maputo</p></div>
+        <div className="rounded-2xl border border-[#e4e5e0] bg-white p-5"><MapPin className="text-[#1d4f46]" size={20} /><p className="mt-4 text-sm font-semibold">Localização</p><p className="mt-1 text-sm text-[#69736f]">Rua José Sidumo, 177, Maputo</p><a href="https://www.google.com/maps/search/?api=1&query=Rua+Jose+Sidumo+177+Maputo+Mozambique" target="_blank" rel="noreferrer" className="mt-3 inline-block text-xs font-semibold text-[#1d4f46] hover:underline">Ver no Google Maps</a></div>
       </div></section>
       <footer className="border-t border-[#e7e5df] py-7 text-center text-xs text-[#7a837f]">© {new Date().getFullYear()} Dr. Pedro Santos — Cirurgia Plástica. Todos os direitos reservados.</footer>
     </main>
