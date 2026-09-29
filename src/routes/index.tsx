@@ -14,13 +14,24 @@ function ClinicHome() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const message = [
-      "Olá, gostaria de solicitar uma consulta com o Dr. Pedro Santos.",
-      `Nome: ${data.get("name")}`,
-      `Telefone: ${data.get("phone")}`,
-      `Data preferencial: ${data.get("date")}`,
-      `Período: ${data.get("period")}`,
-      data.get("message") ? `Mensagem: ${data.get("message")}` : "",
-    ].filter(Boolean).join("\\n");
+      "🏥 *PEDIDO DE MARCAÇÃO DE CONSULTA*",
+      "",
+      "Olá, Dr. Pedro Santos.",
+      "Gostaria de solicitar uma consulta de cirurgia plástica.",
+      "",
+      "👤 *Dados do paciente*",
+      `• Nome: ${data.get("name")}`,
+      `• Telefone: ${data.get("phone")}`,
+      "",
+      "📅 *Preferência de atendimento*",
+      `• Data: ${data.get("date")}`,
+      `• Período: ${data.get("period")}`,
+      data.get("message") ? "" : "",
+      data.get("message") ? "💬 *Mensagem*" : "",
+      data.get("message") ? `${data.get("message")}` : "",
+      "",
+      "Agradeço pela atenção. Fico a aguardar a confirmação da disponibilidade.",
+    ].filter((item, index, arr) => item !== "" || (index > 0 && arr[index - 1] !== "")).join("\n");
     window.open(whatsapp(message), "_blank", "noopener,noreferrer");
     setSubmitted(true);
   };
